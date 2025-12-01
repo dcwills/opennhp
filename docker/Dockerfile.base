@@ -19,7 +19,6 @@ RUN apt-get update && \
     git \
     vim \
     python3 \
-    jq \
     && rm -rf /var/lib/apt/lists/*
 
 # Set Go version
@@ -52,7 +51,6 @@ ENV GOOS=${TARGETOS}
 ENV GOARCH=${TARGETARCH}
 ENV CGO_ENABLED=1
 
-RUN echo "GOPROXY=${GOPROXY}"
 # Verify installations
 RUN go version && \
     gcc --version && \

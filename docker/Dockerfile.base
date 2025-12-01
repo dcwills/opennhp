@@ -3,6 +3,8 @@ FROM --platform=$BUILDPLATFORM ubuntu:22.04 AS builder
 # Get target platform architecture
 ARG TARGETARCH
 ARG TARGETOS
+ARG GOPROXY=https://goproxy.cn,direct
+ENV GOPROXY=${GOPROXY}
 
 # Install basic tools
 RUN apt-get update && \
@@ -16,10 +18,12 @@ RUN apt-get update && \
     ipset \
     git \
     vim \
+    python3 \
+    jq \
     && rm -rf /var/lib/apt/lists/*
 
 # Set Go version
-ENV GO_VERSION=1.21.2
+ENV GO_VERSION=1.24.10
 
 # Set Go download URL based on architecture
 RUN case "${TARGETARCH}" in \
@@ -47,8 +51,8 @@ ENV PATH="${GOPATH}/bin:${PATH}"
 ENV GOOS=${TARGETOS}
 ENV GOARCH=${TARGETARCH}
 ENV CGO_ENABLED=1
-ENV GOPROXY=https://goproxy.cn,direct
 
+RUN echo "GOPROXY=${GOPROXY}"
 # Verify installations
 RUN go version && \
     gcc --version && \
@@ -56,6 +60,7 @@ RUN go version && \
 
 # Set working directory
 WORKDIR /nhp-server
+
 
 # Default command (keep container running)
 CMD ["tail", "-f", "/dev/null"]

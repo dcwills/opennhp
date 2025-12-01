@@ -59,6 +59,5 @@ RUN go version && \
 # Set working directory
 WORKDIR /nhp-server
 
-
 # Default command (keep container running)
 CMD ["tail", "-f", "/dev/null"]

@@ -88,7 +88,7 @@ generate-version-and-build:
 	@echo "$(COLOUR_GREEN)[OpenNHP] Build for platform ${OS_NAME} successfully done!$(END_COLOUR)"
 
 init:
-	@echo "$(COLOUR_BLUE)[OpenNHP] Initializing... GOPROXY=(${GOPROXY}) $(END_COLOUR) "
+	@echo "$(COLOUR_BLUE)[OpenNHP] Initializing... $(END_COLOUR)"
 	git clean -df release
 	cd nhp && go mod tidy
 	cd endpoints && go mod tidy
